@@ -9,36 +9,32 @@
     <title>SignIn</title>
 </head>
 <body>
-
-    <h2>Weekly Coding Challenge #1: Sign in/up Form</h2>
     <div class="container" id="container">
         <div class="form-container sign-in-container">
             <form method="post">
-                <h1>Sign in</h1>
+                <h1>GİRİŞ YAP</h1>
                 <div class="social-container">
                     <a href="#" class="social"><i class="fab fa-facebook-f"></i></a>
                     <a href="#" class="social"><i class="fab fa-google-plus-g"></i></a>
                     <a href="#" class="social"><i class="fab fa-linkedin-in"></i></a>
                 </div>
-                <span>or use your account</span>
                 <input name="email" type="email" placeholder="Email" />
-                <input name="sifre" type="password" placeholder="Password" />
-                <a href="#">Forgot your password?</a>
-                <button type="submit" >Sign In</button>
+                <input name="sifre" type="password" placeholder="Şifre" />
+                <button type="submit" >Giriş Yap</button>
             </form>
         </div>
         <div class="overlay-container">
             <div class="overlay">
                 <div class="overlay-panel overlay-right">
-                    <h1>Hello, Friend!</h1>
-                    <p>Enter your personal details and start journey with us</p>
-                    <button class="ghost" id="signUp">Sign Up</button>
+                    <h1>Merhaba !</h1>
+                    <p>Hesabın yok mu ?</p>
+                    <a href="/auth/signup"><button class="ghost">Kayıt Ol</button></a>
                 </div>
             </div>
         </div>
     </div>
     <% if (typeof message != "undefined") { %>
-        <div class="alert alert-danger m-3">
+        <div class="alert alert-<%= renk %> m-3">
          <%= message %> 
        </div>
     <% } %>  

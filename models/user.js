@@ -1,11 +1,7 @@
 const mongoose=require("mongoose");
 
 const userSchema = mongoose.model('User',{
-    ad: {
-        type: String,
-        required: true
-    },
-    soyad: {
+    adSoyad: {
         type: String,
         required: true
     },
@@ -22,9 +18,9 @@ const userSchema = mongoose.model('User',{
         enum: ['USER', 'ADMIN'],
         default: 'USER'
     },
-    telefon: {
-        type: String,
-        required: true
+    date: {
+        type: Date,
+        default: new Date()
     },
 })
 
