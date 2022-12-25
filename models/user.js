@@ -1,6 +1,7 @@
 const mongoose=require("mongoose");
+const jwt = require("jsonwebtoken");
 
-const userSchema = mongoose.model('User',{
+const AuthSchema = new mongoose.Schema({
     adSoyad: {
         type: String,
         required: true
@@ -24,4 +25,5 @@ const userSchema = mongoose.model('User',{
     },
 })
 
-module.exports=userSchema;
+
+module.exports= mongoose.model('user',AuthSchema);

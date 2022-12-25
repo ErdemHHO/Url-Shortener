@@ -2,7 +2,7 @@
 const express=require("express");
 const mongoose=require("mongoose");
 const bcrypt=require("bcryptjs");
-const User=require("../models/user.js");
+const AuthSchema=require("../models/user.js");
 const jwt=require("jsonwebtoken");
 
 const router = express.Router();
@@ -22,9 +22,9 @@ const signup_post=async function(req, res) {
         const { adSoyad,sifre,sifreKontrol, email } = req.body;
         console.log(adSoyad,sifre,sifreKontrol, email);
 
-        const kullaniciKontrol = await User.findOne({ email });
+        const user = await AuthSchema.findOne({ email: req.body.email });
 
-        if(kullaniciKontrol){
+        if(user){
             return res.render("auth/signup.ejs",{
                 message: "Bu E-Postaya Sahip Bir Kullanıcı Var",
                 renk:"danger"
@@ -36,7 +36,7 @@ const signup_post=async function(req, res) {
                 renk:"danger"
             })     
         }
-        if(sifre.lenght<6){
+        if(sifre.length<6){
             return res.render("auth/signup.ejs",{
                 message: "Şifreniz En Az 6 Karakter Olmalıdır",
                 renk:"danger"
@@ -45,21 +45,18 @@ const signup_post=async function(req, res) {
 
         const hashlenmisSifre = await bcrypt.hash(sifre, 12);
 
-        const createdUser = await User.create({
+        const newUser = await AuthSchema.create({
             adSoyad,
             email,
             sifre:hashlenmisSifre,
         })
 
-        console.log(createdUser);
-
-        const token= jwt.sign({id:createdUser._id}, "SECRET_KEY" , {expiresIn:'1h'});
+        console.log(newUser);
 
         return res.render("auth/signup.ejs",{
-            message: "Kullanıcı Kaydı Oluşturuldu",
+            message: "Kullanıcı Kaydı Oluşturuldu Giriş Yap",
             renk:"success"
         })   
-
     } catch (error) {
         console.log(error);
     }
@@ -74,7 +71,7 @@ const signin_post=async function(req, res) {
         const sifre=req.body.sifre;
         console.log(sifre);
 
-        const user = await User.findOne({email});
+        const user = await AuthSchema.findOne({email});
 
         if(!user){
             return res.render("auth/signin.ejs",{
@@ -82,8 +79,6 @@ const signin_post=async function(req, res) {
                 renk:"danger"
             })     
         }    
-
-        
         const isPasswordCorrect = await bcrypt.compare(sifre, user.sifre);
         if(!isPasswordCorrect){
             return res.render("auth/signin.ejs",{
@@ -91,13 +86,21 @@ const signin_post=async function(req, res) {
                 renk:"danger"
             })   
           }
-        const token=jwt.sign({_id:user._id,adSoyad:user.adSoyad,email:user.email},'jwtPrivateKey');
-        console.log(token);
+        const token=jwt.sign({id:user._id},"SECRET_KEY",{expiresIn:'1h'});
+
+        global.user=user;
+        global.token=token;
+        console.log(global);
+
+        return res.redirect("/user/home");
+        
     } catch (error) {
        console.log(error)
     }
 }
 const signin_get=async function(req, res) {
+    delete global.token;
+    delete global.user;
     try {
         return res.render("auth/signin.ejs", {
         });
@@ -106,6 +109,7 @@ const signin_get=async function(req, res) {
         console.log(err);
     }
 }
+
 
 module.exports={
     signup_post,signup_get,

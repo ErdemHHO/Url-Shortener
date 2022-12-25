@@ -3,13 +3,11 @@ const express = require("express");
 const mongoose=require("mongoose");
 const dotenv=require("dotenv");
 
-
-
 const app = express();
 dotenv.config();
 
 //routes
-// const userRoutes = require("./routes/user");
+const userRoutes = require("./routes/user");
 // const adminRoutes = require("./routes/admin");
 const authRoutes = require("./routes/auth");
 
@@ -33,6 +31,7 @@ app.use(express.static('public'));
 app.use(express.static('node_modules'));
 
 app.use("/auth",authRoutes);
+app.use("/user",userRoutes);
 // app.use("/admin",adminRoutes);
 // app.use("/",userRoutes);
 
