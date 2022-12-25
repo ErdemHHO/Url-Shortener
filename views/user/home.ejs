@@ -17,16 +17,22 @@
                     <h2 data-aos="fade-up">Merhaba <%= user.adSoyad %></h2>  
                     <p data-aos="fade-up" data-aos-delay="100"></p>
                     
-                    <form method="post">
-                        <label class="text-white form-label">Dönüştürmek İstediğiniz Url:</label>
-                        <input name="url" type="url" class="form-control border border-2 form-control rounded-pill" aria-describedby="url"
-                            placeholder="Url Giriniz">
-                        <label class="text-white">İstediğiniz Takma Url İsmi:</label>
-                        <input name="changeUrl" type="url" class="border border-2 form-control rounded-pill" aria-describedby="url"
+                    <form id="urlkısaltma" method="post" class="mb-3" data-aos="fade-up" novalidate>
+                        <div class="form-group mb-2">
+                            <label for="url" class="text-white form-label">Dönüştürmek İstediğiniz Url:</label>
+                            <input id="url" name="url" type="url" class="form-control border border-2 form-control rounded-pill"
+                                aria-describedby="url" placeholder="Url Giriniz">
+                        </div>
+                    
+                        <div class="form-group mt-3">
+                            <label for="changeUrl" class="text-white form-label">İstediğiniz Takma Url İsmi:</label>
+                            <input id="changeUrl" name="changeUrl" type="url" class="border border-2 form-control rounded-pill" aria-describedby="url"
                                 placeholder="Url Giriniz">
-                        <label class="text-white">Geçerlilik Süresi:</label>
-                            <select style="border: none;" aria-label="Default select example"
-                                class=" form-control rounded-pill ">
+                        </div>
+
+                        <div class="form-group mt-3">
+                            <label for="gecerlilik" class="text-white form-label">Geçerlilik Süresi:</label>
+                            <select id="gecerlilik" name="gecerlilik" style="border: none;" aria-label="Default select example" class=" form-control rounded-pill ">
                                 <option>Seçiniz</option>
                                 <option value="1">Bir Saat</option>
                                 <option value="2">Bir Gün</option>
@@ -34,7 +40,9 @@
                                 <option value="4">Bir Ay</option>
                                 <option value="4">Bir Yıl</option>
                             </select>
-                        <button type="submit" class="btn btn-info">Dönüştür</button>
+                        </div>
+                        
+                        <button type="submit" class="btn btn-info mt-4">Dönüştür</button>
                     </form>
     
                     <!-- </div>
@@ -45,7 +53,7 @@
     
                 </div>
             </div>
-    </section><!-- End Hero Section -->
+    </section><!-- End Hero Section --><!-- End Hero Section -->
 
     <%- include("./partials/main")  %>
 

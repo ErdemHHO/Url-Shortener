@@ -1791,14 +1791,14 @@ section {
 }
 
 .hero form .form-control {
-  padding-top: 8px;
-  padding-bottom: 8px;
+  padding-top: 14px;
+  padding-bottom: 14px;
   padding-left: 10px;
   padding-right: 10px;
   border: none;
   margin-right: 10px;
   border: none !important;
-  background: none !important;
+  background: #fff;
 }
 
 .hero form .form-control:hover,
@@ -1965,4 +1965,8 @@ section {
 
 .footer .credits a {
   color: #fff;
+}
+
+#urlkısaltma {
+  background: transparent;
 }
