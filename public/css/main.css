@@ -1785,7 +1785,7 @@ section {
 }
 
 .hero form {
-  background: #fff;
+  background: transparent;
   padding: 10px;
   border-radius: 10px;
 }
@@ -1965,8 +1965,4 @@ section {
 
 .footer .credits a {
   color: #fff;
-}
-
-#urlkısaltma {
-  background: transparent;
 }
