@@ -4,11 +4,14 @@ const mongoose=require("mongoose");
 const bcrypt=require("bcryptjs");
 const AuthSchema=require("../models/user.js");
 const jwt=require("jsonwebtoken");
-
+const emailService=require("../helpers/send-mail");
+const config = require("../config/config.js");
 const router = express.Router();
 
 //signup
 const signup_get=async function(req, res) {
+    delete global.token;
+    delete global.user;
     try {
         res.render("auth/signup.ejs", {
         });
@@ -52,7 +55,12 @@ const signup_post=async function(req, res) {
         })
 
         console.log(newUser);
-
+        emailService.sendMail({
+            from:config.email.from,
+            to:newUser.email,
+            subject:"Hosgeldiniz",
+            html:'<p> Hesabınız başarılı bir şekilde oluşturuldu.</p> <br> <p> Hoşgeldin ' + newUser.adSoyad + '!  </p>  <br>  <p> Şifreniz : '+ sifre +' </p> '
+            });
         return res.render("auth/signup.ejs",{
             message: "Kullanıcı Kaydı Oluşturuldu Giriş Yap",
             renk:"success"

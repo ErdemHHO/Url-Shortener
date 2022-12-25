@@ -1,10 +1,9 @@
-PORT=3000
-
-URI='mongodb+srv://ErdemHHO:Erdem6161.@cluster0.whhgqrh.mongodb.net/?retryWrites=true&w=majority'
-
-
-Email={
+const config = {
+    email:{
         username:"koustajtakipsistemi41@hotmail.com",
         password:"Koustajtakip41.",
         from:"koustajtakipsistemi41@hotmail.com"
     }
+}
+
+module.exports = config;

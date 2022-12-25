@@ -17,6 +17,21 @@ const home=async function(req, res) {
         console.log(err);
     }
 }
+const homeP=async function(req, res) {
+    console.log(req.body);
+    let token=global.token;
+    let user=global.user;
+
+    try {
+        return res.render("user/home.ejs", {
+            token:token,
+            user:user
+        });
+    }
+    catch(err) {
+        console.log(err);
+    }
+}
 
 const logout=async function(req, res) {
     try {
@@ -28,5 +43,5 @@ const logout=async function(req, res) {
 }
 
 module.exports={
-    home,logout
+    home,logout,homeP
 }
