@@ -1,5 +1,6 @@
 
 const express=require("express");
+const ShortUrl = require('../models/shortUrl');
 
 const router = express.Router();
 
@@ -21,6 +22,10 @@ const homeP=async function(req, res) {
     console.log(req.body);
     let token=global.token;
     let user=global.user;
+    await ShortUrl.create({ 
+        fullUrl: req.body.fullUrl,
+        userId:user._id,
+     })
 
     try {
         return res.render("user/home.ejs", {
@@ -33,6 +38,16 @@ const homeP=async function(req, res) {
     }
 }
 
+const tıklanma=async function(req, res) {
+    const kısaltılmısUrl = await ShortUrl.findOne({ kısaltılmısUrl: req.params.kısaltılmısUrl })
+    if (kısaltılmısUrl == null) return res.sendStatus(404)
+    kısaltılmısUrl.tıklanma++;
+    kısaltılmısUrl.save();
+
+    return res.redirect(kısaltılmısUrl.fullUrl);
+}
+
+
 const logout=async function(req, res) {
     try {
         return res.redirect("/auth/signin")
@@ -43,5 +58,5 @@ const logout=async function(req, res) {
 }
 
 module.exports={
-    home,logout,homeP
+    home,logout,homeP,tıklanma
 }
