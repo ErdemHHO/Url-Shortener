@@ -30,8 +30,9 @@ app.use(express.urlencoded({ extended: false }));
 app.use(express.static('public'));
 app.use(express.static('node_modules'));
 
+
 app.use("/auth",authRoutes);
-app.use("/user",userRoutes);
+app.use("/",userRoutes);
 // app.use("/admin",adminRoutes);
 // app.use("/",userRoutes);
 
