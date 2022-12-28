@@ -51,19 +51,17 @@
            <table class="table table-hover table-striped table-bordered table-responsive" id="myTable">
             <thead>
               <tr>
-                <th class="text-dark">Verilen İsim</th>
-                <th class="text-dark">Orijinal URL</th>
                 <th class="text-dark">Kısaltılmış URL</th>
+                <th class="text-dark">Orijinal URL</th>
                 <th class="text-dark">Tıklanma Sayısı</th>
               </tr>
             </thead>
             <tbody>
               <% shortUrls.forEach(shortUrl => { %>
                 <tr>
-                  <td class="text-dark"><%= shortUrl.verilenIsim %></td>
-                  <td class="text-light"><a href="<%= shortUrl.fullUrl %>"><%= shortUrl.fullUrl %></a></td>
-                  <td class="text-light"><a href="<%= shortUrl.kısaltılmısUrl %>"><%= shortUrl.kısaltılmısUrl %></a></td>
-                  <td class="text-dark"><%= shortUrl.tıklanma %></td>
+                    <td class="text-light"><a target="_blank" href="<%= shortUrl.kısaltılmısUrl %>"><%= shortUrl.kısaltılmısUrl %></a></td>
+                    <td class="text-light"><a target="_blank" href="<%= shortUrl.fullUrl %>"><%= shortUrl.fullUrl %></a></td>
+                    <td class="text-dark"><%= shortUrl.tıklanma %></td>
                 </tr>
               <% }) %>
             </tbody>

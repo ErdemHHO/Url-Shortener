@@ -10,7 +10,7 @@ const UrlSchema = new mongoose.Schema({
     type: String,
     required: true
   },
-  verilenIsim: {
+  userAdSoyad: {
     type: String,
     required: true
   },
@@ -29,5 +29,8 @@ const UrlSchema = new mongoose.Schema({
       default: new Date()
   },
 })
+
+
+
 
 module.exports = mongoose.model('Url', UrlSchema)
