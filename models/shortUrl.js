@@ -10,6 +10,10 @@ const UrlSchema = new mongoose.Schema({
     type: String,
     required: true
   },
+  verilenIsim: {
+    type: String,
+    required: true
+  },
   kısaltılmısUrl: {
     type: String,
     required: true,

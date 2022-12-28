@@ -100,7 +100,7 @@ const signin_post=async function(req, res) {
         global.token=token;
         console.log(global);
 
-        return res.redirect("/user/home");
+        return res.redirect("/home");
         
     } catch (error) {
        console.log(error)

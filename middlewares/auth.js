@@ -18,7 +18,7 @@
 
 module.exports = (req, res, next) => {
     if(typeof token == "undefined") {
-        return res.redirect("/user/logout");
+        return res.redirect("/auth/signin");
     }
     next();
 }
