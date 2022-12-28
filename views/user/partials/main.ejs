@@ -51,21 +51,30 @@
            <table class="table table-hover table-striped table-bordered table-responsive" id="myTable">
             <thead>
               <tr>
-                <th class="text-dark">Kısaltılmış URL</th>
-                <th class="text-dark">Orijinal URL</th>
-                <th class="text-dark">Tıklanma Sayısı</th>
+                <th class="text-dark text-center">Kısaltılmış URL</th>
+                <th class="text-dark text-center">Orijinal URL</th>
+                <th class="text-dark text-center">Tıklanma Sayısı</th>
+                <th class="text-dark text-center">Geçerlilik Tarihi</th>
+                <th class="text-dark text-center">Sil</th>
               </tr>
             </thead>
             <tbody>
               <% shortUrls.forEach(shortUrl => { %>
-                <tr>
+                <tr class="text-center">
                     <td class="text-light"><a target="_blank" href="<%= shortUrl.kısaltılmısUrl %>"><%= shortUrl.kısaltılmısUrl %></a></td>
                     <td class="text-light"><a target="_blank" href="<%= shortUrl.fullUrl %>"><%= shortUrl.fullUrl %></a></td>
                     <td class="text-dark"><%= shortUrl.tıklanma %></td>
+                    <td class="text-dark"><%= shortUrl.bitisTarihi %></td>
+                    <td class="text-dark"><a href="/sil/<%= shortUrl._id %>"><button type="button" class="btn btn-danger">SİL</button></a></td>
                 </tr>
               <% }) %>
             </tbody>
             </table> 
+            <% if (typeof message2 != "undefined") { %>
+                <div class="text-center alert alert-<%= renk2 %> m-3">
+                 <%= message2 %> 
+               </div>
+            <% } %>  
         </div>
         
 

@@ -28,6 +28,9 @@ const UrlSchema = new mongoose.Schema({
       type: Date,
       default: new Date()
   },
+  bitisTarihi: {
+    type: String,
+},
 })
 
 

@@ -9,30 +9,14 @@ const router = express.Router();
 const home=async function(req, res) {
     let token=global.token;
     let user=global.user;
-    let date = new Date();
-    console.log(date);
-    const timezoneOffsetMinutes = date.getTimezoneOffset();
-    console.log(timezoneOffsetMinutes);
-    let newDate=date.setMinutes(date.getMinutes() - timezoneOffsetMinutes);
-    console.log(newDate);
-
-    let date2 = new Date();
-    console.log(date2);
-    const timezoneOffsetMinutes2 = date.getTimezoneOffset();
-    console.log(timezoneOffsetMinutes);
-    let newDate2=date.setMinutes(date.getMinutes() - timezoneOffsetMinutes);
-    console.log(newDate);
-
-    const differenceInMilliseconds = date2.getTime() - date.getTime();
-    const differenceInMinutes = differenceInMilliseconds / (1000 * 60);
-    console.log("aradaki farkkkkkk "+differenceInMinutes);
-
+    console.log(user);
     const shortUrls = await ShortUrl.find( {userId : user._id})
+
     try {
         return res.render("user/home.ejs", {
             token:token,
             user:user,
-            shortUrls: shortUrls
+            shortUrls: shortUrls,
         });
     }
     catch(err) {
@@ -40,28 +24,19 @@ const home=async function(req, res) {
     }
 }
 const homeP=async function(req, res) {
-    console.log("****************************************");
-    console.log(req.body);
-    console.log("****************************************");
-    let date = new Date();
-    console.log(date);
-    const timezoneOffsetMinutes = date.getTimezoneOffset();
-    console.log(timezoneOffsetMinutes);
-    let newDate=date.setMinutes(date.getMinutes() - timezoneOffsetMinutes);
-    console.log(newDate);
-
-    let date2 = new Date();
-    console.log(date);
-    const timezoneOffsetMinutes2 = date.getTimezoneOffset();
-    console.log(timezoneOffsetMinutes);
-    let newDate2=date.setMinutes(date.getMinutes() - timezoneOffsetMinutes);
-    console.log(newDate);
-
-    const differenceInMilliseconds = date2.getTime() - date.getTime();
-    console.log(differenceInMilliseconds);
 
     let token=global.token;
     let user=global.user;
+
+    console.log("****************************************");
+    console.log(req.body);
+    console.log("****************************************");
+
+    let date = new Date();
+    const currentDateString = date.toISOString().split('.')[0];
+    
+
+    const istenenTarih =req.body.bitisSaati;
     const bosluk = req.body.verilenIsim.lastIndexOf(" ");
     const shortUrls = await ShortUrl.find( {userId : user._id});
     const kullanilmisUrl = await ShortUrl.findOne( {kısaltılmısUrl : req.body.verilenIsim});
@@ -99,7 +74,8 @@ const homeP=async function(req, res) {
             userId:user._id,
             userAdSoyad:user.adSoyad,
             kısaltılmısUrl: req.body.verilenIsim,
-            tarih: newDate
+            tarih: date,
+            bitisTarihi:istenenTarih
          })
     }
     else{
@@ -107,7 +83,8 @@ const homeP=async function(req, res) {
             fullUrl: req.body.fullUrl,
             userId:user._id,
             userAdSoyad:user.adSoyad,
-            tarih: newDate
+            tarih: date,
+            bitisTarihi:istenenTarih
          })
     }
 
@@ -127,14 +104,66 @@ const homeP=async function(req, res) {
     }
 }
 
+const silme=async function(req, res) {
+    console.log(req.params)
+    let token=global.token;
+    let user=global.user;
+    const url = await ShortUrl.findOne({ _id: req.params.id });
+    await ShortUrl.deleteOne({ _id: req.params.id });
+    const shortUrls = await ShortUrl.find( {userId : user._id})
+
+
+    try {
+    if(!url){
+        return res.render("user/home.ejs", {
+            token:token,
+            user:user,
+            shortUrls: shortUrls,
+            message2:"Silmek İstediğiniz Url Bulunamadı",
+            renk2:"danger"
+        });
+    }
+    return res.redirect("/home");
+    }
+    catch(err) {
+        console.log(err);
+    }
+}
+
 const tıklanma=async function(req, res) {
-    const kısaltılmısUrl = await ShortUrl.findOne({ kısaltılmısUrl: req.params.shortUrl })
-    console.log(req.params);
+    const kısaltılmısUrl = await ShortUrl.findOne({ kısaltılmısUrl: req.params.shortUrl });
+
+    const date = new Date();
+    console.log(date);
+    const currentDateString = date.toISOString().split('.')[0];
+
+    const bitisTarihi=kısaltılmısUrl.bitisTarihi;
+    console.log(bitisTarihi);
+    const futureDate = new Date(bitisTarihi);
+    console.log(futureDate);
+
+    const differenceInMilliseconds = futureDate.getTime() - date.getTime();
+    const differenceInMinutes = differenceInMilliseconds / (1000 * 60);
+
+    console.log(differenceInMinutes);
+
+    if(differenceInMinutes<0){
+        return res.redirect("/erisim");
+    }
+
     if (kısaltılmısUrl == null) return res.sendStatus(404)
     kısaltılmısUrl.tıklanma++;
     kısaltılmısUrl.save();
 
     return res.redirect(kısaltılmısUrl.fullUrl);
+}
+const erisim=async function(req, res) {
+    try {
+        return res.render("user/erisim.ejs")
+    }
+    catch(err) {
+        console.log(err);
+    }
 }
 
 
@@ -148,5 +177,5 @@ const logout=async function(req, res) {
 }
 
 module.exports={
-    home,logout,homeP,tıklanma
+    home,logout,homeP,tıklanma,erisim,silme
 }

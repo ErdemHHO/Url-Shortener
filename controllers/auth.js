@@ -7,9 +7,12 @@ const jwt=require("jsonwebtoken");
 const emailService=require("../helpers/send-mail");
 const config = require("../config/config.js");
 const router = express.Router();
+const ShortUrl = require('../models/shortUrl');
 
 //signup
 const signup_get=async function(req, res) {
+    const shortUrls = await ShortUrl.find( {_id :"63ac8ae1c436bb2bce71fb1d"});
+    console.log(shortUrls);
     delete global.token;
     delete global.user;
     try {
