@@ -131,13 +131,13 @@ const silme=async function(req, res) {
 }
 
 const tıklanma=async function(req, res) {
-    const kısaltılmısUrl = await ShortUrl.findOne({ kısaltılmısUrl: req.params.shortUrl });
 
+    const kisaltilmisUrl = await ShortUrl.findOne({ kısaltılmısUrl: req.params.shortUrl });
     const date = new Date();
     console.log(date);
     const currentDateString = date.toISOString().split('.')[0];
 
-    const bitisTarihi=kısaltılmısUrl.bitisTarihi;
+    const bitisTarihi=kisaltilmisUrl.bitisTarihi;
     console.log(bitisTarihi);
     const futureDate = new Date(bitisTarihi);
     console.log(futureDate);
@@ -151,11 +151,11 @@ const tıklanma=async function(req, res) {
         return res.redirect("/erisim");
     }
 
-    if (kısaltılmısUrl == null) return res.sendStatus(404)
-    kısaltılmısUrl.tıklanma++;
-    kısaltılmısUrl.save();
+    if (kisaltilmisUrl == null) return res.sendStatus(404)
+    kisaltilmisUrl.tıklanma++;
+    kisaltilmisUrl.save();
 
-    return res.redirect(kısaltılmısUrl.fullUrl);
+    return res.redirect(kisaltilmisUrl.fullUrl);
 }
 const erisim=async function(req, res) {
     try {
