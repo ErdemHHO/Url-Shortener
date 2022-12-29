@@ -6,6 +6,16 @@ const shortId = require('shortid');
 
 const router = express.Router();
 
+
+
+const start=async function(req,res){
+    try {
+        return res.redirect("/home");
+    } catch (error) {
+        console.log(error);
+    }
+}
+
 const home=async function(req, res) {
     let token=global.token;
     let user=global.user;
@@ -131,31 +141,35 @@ const silme=async function(req, res) {
 }
 
 const tıklanma=async function(req, res) {
-
-    const kisaltilmisUrl = await ShortUrl.findOne({ kısaltılmısUrl: req.params.shortUrl });
-    const date = new Date();
-    console.log(date);
-    const currentDateString = date.toISOString().split('.')[0];
-
-    const bitisTarihi=kisaltilmisUrl.bitisTarihi;
-    console.log(bitisTarihi);
-    const futureDate = new Date(bitisTarihi);
-    console.log(futureDate);
-
-    const differenceInMilliseconds = futureDate.getTime() - date.getTime();
-    const differenceInMinutes = differenceInMilliseconds / (1000 * 60);
-
-    console.log(differenceInMinutes);
-
-    if(differenceInMinutes<0){
-        return res.redirect("/erisim");
+    try {
+        const kisaltilmisUrl = await ShortUrl.findOne({ kısaltılmısUrl: req.params.shortUrl });
+        const date = new Date();
+        console.log(date);
+        const currentDateString = date.toISOString().split('.')[0];
+    
+        const bitisTarihi=kisaltilmisUrl.bitisTarihi;
+        console.log(bitisTarihi);
+        const futureDate = new Date(bitisTarihi);
+        console.log(futureDate);
+    
+        const differenceInMilliseconds = futureDate.getTime() - date.getTime();
+        const differenceInMinutes = differenceInMilliseconds / (1000 * 60);
+    
+        console.log(differenceInMinutes);
+    
+        if(differenceInMinutes<0){
+            return res.redirect("/erisim");
+        }
+    
+        if (kisaltilmisUrl == null) return res.sendStatus(404)
+        kisaltilmisUrl.tıklanma++;
+        kisaltilmisUrl.save();
+    
+        return res.redirect(kisaltilmisUrl.fullUrl);
+    } catch (error) {
+        console.log(error);
     }
 
-    if (kisaltilmisUrl == null) return res.sendStatus(404)
-    kisaltilmisUrl.tıklanma++;
-    kisaltilmisUrl.save();
-
-    return res.redirect(kisaltilmisUrl.fullUrl);
 }
 const erisim=async function(req, res) {
     try {
@@ -177,5 +191,5 @@ const logout=async function(req, res) {
 }
 
 module.exports={
-    home,logout,homeP,tıklanma,erisim,silme
+    home,logout,homeP,tıklanma,erisim,silme,start
 }
