@@ -5,7 +5,6 @@ const router = express.Router();
 const userController=require("../controllers/user.js");
 const auth = require("../middlewares/auth");
 
-
 router.get("/",userController.start);
 
 router.get("/home",auth,userController.home);

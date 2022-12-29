@@ -1966,3 +1966,6 @@ section {
 .footer .credits a {
   color: #fff;
 }
+.btn{
+  background-color: #df1529 !important;
+}
