@@ -1,7 +1,8 @@
 
 const express=require("express");
 const ShortUrl = require('../models/shortUrl');
-
+const config = require("../config/config.js");
+const emailService=require("../helpers/send-mail");
 const shortId = require('shortid');
 
 const router = express.Router();
@@ -33,6 +34,7 @@ const home=async function(req, res) {
         console.log(err);
     }
 }
+
 const homeP=async function(req, res) {
 
     let token=global.token;
@@ -50,6 +52,7 @@ const homeP=async function(req, res) {
     const bosluk = req.body.verilenIsim.lastIndexOf(" ");
     const shortUrls = await ShortUrl.find( {userId : user._id});
     const kullanilmisUrl = await ShortUrl.findOne( {kısaltılmısUrl : req.body.verilenIsim});
+    let takmaUrl=shortId.generate();
     console.log(bosluk);
     if(bosluk!=-1){
         return res.render("user/home.ejs", {
@@ -79,11 +82,12 @@ const homeP=async function(req, res) {
         });
     }
     if(req.body.verilenIsim!=""){
+        takmaUrl=req.body.verilenIsim;
         await ShortUrl.create({ 
             fullUrl: req.body.fullUrl,
             userId:user._id,
             userAdSoyad:user.adSoyad,
-            kısaltılmısUrl: req.body.verilenIsim,
+            kısaltılmısUrl:takmaUrl,
             tarih: date,
             bitisTarihi:istenenTarih
          })
@@ -94,11 +98,17 @@ const homeP=async function(req, res) {
             userId:user._id,
             userAdSoyad:user.adSoyad,
             tarih: date,
-            bitisTarihi:istenenTarih
+            bitisTarihi:istenenTarih,
+            kısaltılmısUrl:takmaUrl
          })
     }
 
-
+    emailService.sendMail({
+        from:config.email.from,
+        to:user.email,
+        subject:"Url Oluşturuldu",
+        html:'<p> Urliniz oluşturuldu.</p> <br> <p> Gerçek Url: ' + req.body.fullUrl + '</p>  <br>  <p> Dönüştürüdüğüz Url : http://localhost:3000/'+takmaUrl+' </p> <br><p> Oluşturulma Tarihi:'+currentDateString+ '</p> <br> <p>Geçerlilik Tarihi:'+istenenTarih+'</p>'
+        });
 
     try {
         return res.render("user/home.ejs", {
@@ -179,7 +189,6 @@ const erisim=async function(req, res) {
         console.log(err);
     }
 }
-
 
 const logout=async function(req, res) {
     try {

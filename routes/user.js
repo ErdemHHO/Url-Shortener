@@ -7,7 +7,7 @@ const auth = require("../middlewares/auth");
 
 
 router.get("/",userController.start);
-// // localhost:3000/auth/signup  GET-POST 
+
 router.get("/home",auth,userController.home);
 router.post("/home",auth,userController.homeP);
 
