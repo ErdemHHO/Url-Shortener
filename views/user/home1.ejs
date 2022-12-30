@@ -55,7 +55,6 @@
                 <li><a href="/home" class="active">Ana Sayfa</a></li>
                 <li><a href="#about">Hakkımızda</a></li>
                 <li><a href="#service">Hizmetlerimiz</a></li>
-                <li><a href="#chart">İstatistikler</a></li>
                 <li class="dropdown"><a  href="#"><span><%= user.adSoyad %></span> <i class="bi bi-chevron-down dropdown-indicator"></i></a>
                     <ul>
                         <li><a href="#mytable">Dönüştürdüklerim</a></li>
@@ -171,45 +170,41 @@
 
         </div>
     </section><!-- End About Us Section -->
+    <div class="section-header">
+        <span>DÖNÜŞTÜRDÜKLERİM</span>
+        <h2>DÖNÜŞTÜRDÜKLERİM</h2>
 
-    <section id="mytable">
-        <div class="section-header">
-            <span>DÖNÜŞTÜRDÜKLERİM</span>
-            <h2>DÖNÜŞTÜRDÜKLERİM</h2>
-    
-        </div>
-    
-        <div class="container">
-           <table class="table table-hover table-striped table-bordered table-responsive" id="myTable">
-            <thead>
-              <tr>
-                <th class="text-dark text-center">Kısaltılmış URL</th>
-                <th class="text-dark text-center">Orijinal URL</th>
-                <th class="text-dark text-center">Tıklanma Sayısı</th>
-                <th class="text-dark text-center">Geçerlilik Tarihi</th>
-                <th class="text-dark text-center">Sil</th>
-              </tr>
-            </thead>
-            <tbody>
-              <% shortUrls.forEach(shortUrl => { %>
-                <tr class="text-center">
-                    <td class="text-dark"><a target="_blank" href="<%= shortUrl.kısaltılmısUrl %>"><%= shortUrl.kısaltılmısUrl %></a></td>
-                    <td class="text-dark"><a target="_blank" href="<%= shortUrl.fullUrl %>"><%= shortUrl.fullUrl %></a></td>
-                    <td class="text-dark"><%= shortUrl.tıklanma %></td>
-                    <td class="text-dark"><%= shortUrl.bitisTarihi %></td>
-                    <td class="text-dark"><a href="/sil/<%= shortUrl._id %>"><button type="button" class="btn btn-danger">Sil</button></a></td>
-                </tr>
-              <% }) %>
-            </tbody>
-            </table> 
-            <% if (typeof message2 != "undefined") { %>
-                <div class="text-center alert alert-<%= renk2 %> m-3">
-                 <%= message2 %> 
-               </div>
-            <% } %>  
-        </div>
-    </section>
-    
+    </div>
+
+    <div class="container">
+       <table class="table table-hover table-striped table-bordered table-responsive" id="myTable">
+        <thead>
+          <tr>
+            <th class="text-dark text-center">Kısaltılmış URL</th>
+            <th class="text-dark text-center">Orijinal URL</th>
+            <th class="text-dark text-center">Tıklanma Sayısı</th>
+            <th class="text-dark text-center">Geçerlilik Tarihi</th>
+            <th class="text-dark text-center">Sil</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% shortUrls.forEach(shortUrl => { %>
+            <tr class="text-center">
+                <td class="text-dark"><a target="_blank" href="<%= shortUrl.kısaltılmısUrl %>"><%= shortUrl.kısaltılmısUrl %></a></td>
+                <td class="text-dark"><a target="_blank" href="<%= shortUrl.fullUrl %>"><%= shortUrl.fullUrl %></a></td>
+                <td class="text-dark"><%= shortUrl.tıklanma %></td>
+                <td class="text-dark"><%= shortUrl.bitisTarihi %></td>
+                <td class="text-dark"><a href="/sil/<%= shortUrl._id %>"><button type="button" class="btn btn-danger">Sil</button></a></td>
+            </tr>
+          <% }) %>
+        </tbody>
+        </table> 
+        <% if (typeof message2 != "undefined") { %>
+            <div class="text-center alert alert-<%= renk2 %> m-3">
+             <%= message2 %> 
+           </div>
+        <% } %>  
+    </div>
     
 
     <!-- ======= Services Section ======= -->
@@ -324,47 +319,6 @@
 </div>
 
 
-<section id="chart" class="section mt-5">
-    <div class="row">
-        <div class="section-header">
-            <span>İstatistikler</span>
-            <h2>İstatistikler</h2>
-
-        </div>
-        <div class="col-lg-6">
-            <div class="card">
-                <div class="card-body">
-                    <h6 class="card-title"></h6>
-
-                    <!-- Line Chart -->
-                    <div id="lineChart"></div>
-                    <iframe style=" width: 100%; background: #FFFFFF;border: none;border-radius: 2px;box-shadow: 0 2px 10px 0 rgba(70, 76, 79, .2);" width="640" height="480" src="https://charts.mongodb.com/charts-project-0-ydbwd/embed/charts?id=63ae3277-94f5-4d48-8c07-a1fc56a66799&maxDataAge=10&theme=light&autoRefresh=true"></iframe>        
-                    <!-- End Line Chart -->
-
-                </div>
-            </div>
-        </div>
-
-    
-
-        <div style="margin: auto;" class="col-lg-6">
-            <div class="card ">
-                <div class="card-body">
-                    <h5 class="card-title"></h5>
-
-                    <!-- Area Chart -->
-                    <div id="areaChart">
-                        <iframe style=" width: 100%; background: #FFFFFF;border: none;border-radius: 2px;box-shadow: 0 2px 10px 0 rgba(70, 76, 79, .2);" width="640" height="480" src="https://charts.mongodb.com/charts-project-0-ydbwd/embed/charts?id=63ae2755-2597-405b-8538-b6148d9ed89f&maxDataAge=10&theme=light&autoRefresh=true"></iframe>        
-
-                    <!-- End Area Chart -->
-
-                </div>
-            </div>
-        </div>
-
-
-    </div>
-</section>
 
 
     <!-- ======= Frequently Asked Questions Section ======= -->

@@ -1,6 +1,7 @@
 
 const express=require("express");
 const ShortUrl = require('../models/shortUrl');
+const AuthSchema=require("../models/user.js");
 const config = require("../config/config.js");
 const emailService=require("../helpers/send-mail");
 const shortId = require('shortid');
@@ -20,6 +21,9 @@ const start=async function(req,res){
 const home=async function(req, res) {
     let token=global.token;
     let user=global.user;
+    if(user.rol!="USER"){
+        return res.redirect("/admin/dashboard");
+    }
     console.log(user);
     const shortUrls = await ShortUrl.find( {userId : user._id})
 
@@ -150,37 +154,37 @@ const silme=async function(req, res) {
     }
 }
 
-const tıklanma=async function(req, res) {
-    try {
-        const kisaltilmisUrl = await ShortUrl.findOne({ kısaltılmısUrl: req.params.shortUrl });
-        const date = new Date();
-        console.log(date);
-        const currentDateString = date.toISOString().split('.')[0];
+// const tıklanma=async function(req, res) {
+//     try {
+//         const kisaltilmisUrl = await ShortUrl.findOne({ kısaltılmısUrl: req.params.shortUrl });
+//         const date = new Date();
+//         console.log(date);
+//         const currentDateString = date.toISOString().split('.')[0];
     
-        const bitisTarihi=kisaltilmisUrl.bitisTarihi;
-        console.log(bitisTarihi);
-        const futureDate = new Date(bitisTarihi);
-        console.log(futureDate);
+//         const bitisTarihi=kisaltilmisUrl.bitisTarihi;
+//         console.log(bitisTarihi);
+//         const futureDate = new Date(bitisTarihi);
+//         console.log(futureDate);
     
-        const differenceInMilliseconds = futureDate.getTime() - date.getTime();
-        const differenceInMinutes = differenceInMilliseconds / (1000 * 60);
+//         const differenceInMilliseconds = futureDate.getTime() - date.getTime();
+//         const differenceInMinutes = differenceInMilliseconds / (1000 * 60);
     
-        console.log(differenceInMinutes);
+//         console.log(differenceInMinutes);
     
-        if(differenceInMinutes<0){
-            return res.redirect("/erisim");
-        }
+//         if(differenceInMinutes<0){
+//             return res.redirect("/erisim");
+//         }
     
-        if (kisaltilmisUrl == null) return res.sendStatus(404)
-        kisaltilmisUrl.tıklanma++;
-        kisaltilmisUrl.save();
+//         if (kisaltilmisUrl == null) return res.sendStatus(404)
+//         kisaltilmisUrl.tıklanma++;
+//         kisaltilmisUrl.save();
     
-        return res.redirect(kisaltilmisUrl.fullUrl);
-    } catch (error) {
-        console.log(error);
-    }
+//         return res.redirect(kisaltilmisUrl.fullUrl);
+//     } catch (error) {
+//         console.log(error);
+//     }
 
-}
+// }
 const erisim=async function(req, res) {
     try {
         return res.render("user/erisim.ejs")
@@ -200,5 +204,5 @@ const logout=async function(req, res) {
 }
 
 module.exports={
-    home,logout,homeP,tıklanma,erisim,silme,start
+    home,logout,homeP,erisim,silme,start
 }

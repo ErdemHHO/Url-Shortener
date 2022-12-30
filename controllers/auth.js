@@ -102,7 +102,9 @@ const signin_post=async function(req, res) {
         global.user=user;
         global.token=token;
         console.log(global);
-
+        if(user.rol=="ADMIN"){
+            return res.redirect("/admin/dashboard");
+        }
         return res.redirect("/home");
         
     } catch (error) {

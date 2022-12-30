@@ -8,7 +8,7 @@ dotenv.config();
 
 //routes
 const userRoutes = require("./routes/user");
-// const adminRoutes = require("./routes/admin");
+const adminRoutes = require("./routes/admin");
 const authRoutes = require("./routes/auth");
 
 //custom modules
@@ -33,7 +33,7 @@ app.use(express.static('node_modules'));
 
 app.use("/auth",authRoutes);
 app.use("/",userRoutes);
-// app.use("/admin",adminRoutes);
+app.use("/admin",adminRoutes);
 // app.use("/",userRoutes);
 
 

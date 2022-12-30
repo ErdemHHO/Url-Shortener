@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="TR">
+
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+  <title>URL-SHORTENER ADMIN</title>
+  <meta content="" name="description">
+  <meta content="" name="keywords">
+
+  <!-- Favicons -->
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,600;1,700&family=Poppins:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&family=Inter:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&display=swap" rel="stylesheet">
+
+  <!-- Vendor CSS Files -->
+  <link href="../vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="../vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+  <link href="../vendor/fontawesome-free/css/all.min.css" rel="stylesheet">
+  <link href="../vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
+  <link href="../vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
+  <link href="../vendor/aos/aos.css" rel="stylesheet">
+
+  <!-- Template Main CSS File -->
+  <link href="../css/main.css" rel="stylesheet">
+
+  <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs5/jq-3.6.0/jszip-2.5.0/dt-1.12.1/b-2.2.3/b-colvis-2.2.3/b-html5-2.2.3/b-print-2.2.3/datatables.min.css"/>
+<style>
+    #header{
+        background-color: var(--color-secondary);
+        background-image: url("./img/hero-bg.png");
+        background-size: cover;
+        background-position: center;
+    }
+</style>
+
+</head>
+
+<body>
+
+  <!-- ======= Header ======= -->
+  <header id="header" class="header d-flex align-items-center fixed-top">
+    <div class="container-fluid container-xl d-flex align-items-center justify-content-between">
+
+        <a style="text-decoration: none;" href="#hero" class="logo d-flex align-items-center">
+            <!-- Uncomment the line below if you also wish to use an image logo -->
+            <!-- <img src="../../public/img/logo.png" alt=""> -->
+            <h1>URL-SHORTENER</h1>
+        </a>
+
+        <i class="mobile-nav-toggle mobile-nav-show bi bi-list"></i>
+        <i class="mobile-nav-toggle mobile-nav-hide d-none bi bi-x"></i>
+        <nav id="navbar" class="navbar">
+            <ul>
+                <li><a href="#chart" class="active">İstatistikler</a></li>
+                <li><a href="#about">Kullanıcılar</a></li>
+                <li><a href="#service">Url Bilgileri</a></li>
+                <li class="dropdown"><a href="#"><span> <%= user.adSoyad %> </span> <i class="bi bi-chevron-down dropdown-indicator"></i></a>
+                    <ul>
+                        
+
+                        
+                        <li><a href="/auth/signin">Çıkış Yap</a></li>
+                        
+                    </ul>
+                </li>
+                
+            </ul>
+        </nav><!-- .navbar -->
+
+    </div>
+</header><!-- End Header -->
+  <!-- End Header -->
+
+
+
+  <main id="main">
+
+
+    <!-- ======= Chart Section ======= -->
+
+    <section id="chart" class="section mt-5">
+        <div class="row">
+            <div class="section-header">
+                <span>İstatistikler</span>
+                <h2>İstatistikler</h2>
+
+            </div>
+            <div class="col-lg-6">
+                <div class="card">
+                    <div class="card-body">
+                        <h6 class="card-title"></h6>
+    
+                        <!-- Line Chart -->
+                        <div id="lineChart"></div>
+                        <iframe style=" width: 100%; background: #FFFFFF;border: none;border-radius: 2px;box-shadow: 0 2px 10px 0 rgba(70, 76, 79, .2);" width="640" height="480" src="https://charts.mongodb.com/charts-project-0-ydbwd/embed/charts?id=63ae3277-94f5-4d48-8c07-a1fc56a66799&maxDataAge=10&theme=light&autoRefresh=true"></iframe>        
+                        <!-- End Line Chart -->
+    
+                    </div>
+                </div>
+            </div>
+    
+            <div class="col-lg-6">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title"></h5>
+    
+                        <!-- Area Chart -->
+                        <div id="areaChart">
+                            <iframe style=" width:100% ; background: #FFFFFF;border: none;border-radius: 2px;box-shadow: 0 2px 10px 0 rgba(70, 76, 79, .2);" width="640" height="480" src="https://charts.mongodb.com/charts-project-0-ydbwd/embed/charts?id=63ae1ebf-4545-4a88-85ef-848d957d81f3&maxDataAge=10&theme=light&autoRefresh=true"></iframe>                            </div>
+    
+    
+                        <!-- End Area Chart -->
+    
+                    </div>
+                </div>
+            </div>
+    
+            <div  class="col-lg-6">
+                <div  class="card mt-3">
+                    <div class="card-body ">
+                        <h5 class="card-title"></h5>
+    
+                        <!-- Column Chart -->
+                        <div id="columnChart">
+                            <iframe style=" width: 100%; background: #FFFFFF;border: none;border-radius: 2px;box-shadow: 0 2px 10px 0 rgba(70, 76, 79, .2);" width="640" height="480" src="https://charts.mongodb.com/charts-project-0-ydbwd/embed/charts?id=63ae2bb0-b222-491b-8097-6652df65fd8d&maxDataAge=10&theme=light&autoRefresh=true"></iframe>                            </div>
+    
+    
+                        <!-- End Column Chart -->
+    
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-6">
+                <div class="card mt-3">
+                    <div class="card-body">
+                        <h5 class="card-title"></h5>
+    
+                        <!-- Area Chart -->
+                        <div id="areaChart">
+                            <iframe style=" width: 100%; background: #FFFFFF;border: none;border-radius: 2px;box-shadow: 0 2px 10px 0 rgba(70, 76, 79, .2);" width="640" height="480" src="https://charts.mongodb.com/charts-project-0-ydbwd/embed/charts?id=63ae193b-94f5-4e75-8ad5-a1fc567a4b15&maxDataAge=10&theme=light&autoRefresh=true"></iframe>                            </div>
+    
+    
+                        <!-- End Area Chart -->
+    
+                    </div>
+                </div>
+            </div>
+    
+            <div style="margin: auto;" class="col-lg-6">
+                <div class="card mt-3">
+                    <div class="card-body">
+                        <h5 class="card-title"></h5>
+    
+                        <!-- Area Chart -->
+                        <div id="areaChart">
+                            <iframe style=" width: 100%; background: #FFFFFF;border: none;border-radius: 2px;box-shadow: 0 2px 10px 0 rgba(70, 76, 79, .2);" width="640" height="480" src="https://charts.mongodb.com/charts-project-0-ydbwd/embed/charts?id=63ae2755-2597-405b-8538-b6148d9ed89f&maxDataAge=10&theme=light&autoRefresh=true"></iframe>        
+    
+                        <!-- End Area Chart -->
+    
+                    </div>
+                </div>
+            </div>
+    
+    
+        </div>
+    </section>
+ 
+        
+   <!-- End About Us Section -->
+
+    
+    
+
+    <!-- ======= Services Section ======= -->
+    <section id="about" class="about pt-0 mt-5">
+        <div class="mt-5 section-header">
+            <span>Kullanıcılar</span>
+            <h2>Kullanıcılar</h2>
+
+        </div>
+        <div class="container">
+            <table class="table table-hover table-striped table-bordered table-responsive" id="kullanıcılar">
+             <thead>
+               <tr>
+                 <th class="text-dark text-center">Ad-Soyad</th>
+                 <th class="text-dark text-center">E-mail</th>
+                 <th class="text-dark text-center">Rol</th>
+                 <th class="text-dark text-center">Kayıt Tarihi</th>
+                 <th class="text-dark text-center">Sil</th>
+               </tr>
+             </thead>
+             <tbody>
+               <% kullanıcılar.forEach(kullanıcı => { %>
+                 <tr class="text-center">
+                     <td class="text-dark"><%= kullanıcı.adSoyad %></td>
+                     <td class="text-dark"><%= kullanıcı.email %></td>
+                     <td class="text-dark"><%= kullanıcı.rol %></td>
+                     <td class="text-dark"><%= kullanıcı.date %></td>
+                     <td class="text-dark"><a href="/admin/sil/<%= kullanıcı._id %>" ><button type="button" class="btn btn-danger">Sil</button></a></td>
+                 </tr>
+               <% }) %>
+             </tbody>
+             </table> 
+             <% if (typeof message2 != "undefined") { %>
+                 <div class="text-center alert alert-<%= renk2 %> m-3">
+                  <%= message2 %> 
+                </div>
+             <% } %>  
+         </div>
+    </section><!-- End Services Section -->
+
+
+   
+
+
+
+    <!-- ======= Frequently Asked Questions Section ======= -->
+    <section id="service" class="services pt-0">
+        <div class="mt-5 section-header">
+            <span>URL</span>
+            <h2>URL</h2>
+
+        </div>
+        <div class="container">
+            <table class="table table-hover table-striped table-bordered table-responsive" id="url">
+             <thead>
+               <tr>
+                 <th class="text-dark text-center">Oluşturan Kişi</th>
+                 <th class="text-dark text-center">Kısa Url</th>
+                 <th class="text-dark text-center">Orijinal Url</th>
+                 <th class="text-dark text-center">Tıklanma Sayısı</th>
+                 <th class="text-dark text-center">Oluşturulma Tarihi</th>
+                 <th class="text-dark text-center">Geçerlilik Tarihi</th>
+                 <th class="text-dark text-center">Sil</th>
+               </tr>
+             </thead>
+             <tbody>
+               <% shortUrls.forEach(shortUrl => { %>
+                 <tr class="text-center">
+                     <td class="text-dark"><%= shortUrl.userAdSoyad %></td>
+                     <td class="text-dark"><a target="_blank" href="<%= shortUrl.kısaltılmısUrl %>"><%= shortUrl.kısaltılmısUrl %></a></td>
+                     <td class="text-dark"><a target="_blank" href="<%= shortUrl.fullUrl %>"><%= shortUrl.fullUrl %></a></td>
+                     <td class="text-dark"><%= shortUrl.tıklanma %></td>
+                     <td class="text-dark"><%= shortUrl.tarih %></td>
+                     <td class="text-dark"><%= shortUrl.bitisTarihi %></td>
+                     <td class="text-dark"><a href="/admin/sil/<%= shortUrl._id %>"><button type="button" class="btn btn-danger">Sil</button></a></td>
+                 </tr>
+               <% }) %>
+             </tbody>
+             </table> 
+             <% if (typeof message2 != "undefined") { %>
+                 <div class="text-center alert alert-<%= renk2 %> m-3">
+                  <%= message2 %> 
+                </div>
+             <% } %>  
+         </div>
+       
+    </section><!-- End Frequently Asked Questions Section -->
+
+</main><!-- End #main --><!-- End #main -->
+
+  <!-- ======= Footer ======= -->
+  <footer id="footer" class="footer">
+
+    <div class="container">
+        <div class="row gy-4">
+            <div class="col-lg-5 col-md-12 footer-info">
+                <a href="#" class="logo d-flex align-items-center">
+                    <span>URL-SHORTENER</span>
+                </a>
+                <p>On yılı aşkın bir süredir, dijital bilgi paylaşanlar ve onların izleyicileri için bağlantı noktası olduk. Bağlantılar için katalizör görevi gören bir platform olmaktan gurur duyuyoruz ve bu taahhüdü yaptığımız her şeye taşıyoruz.</p>
+                
+            </div>
+
+            <div class="col-lg-2 col-6 footer-links">
+                <h4>Menu</h4>
+                <ul>
+                    <li><a href="#chart">İstatistikler</a></li>
+                    <li><a href="#about">Kullanıcılar</a></li>
+                    <li><a href="#service">Url Bilgileri</a></li>
+                    
+                </ul>
+            </div>
+
+            
+
+            <div class="col-lg-3 col-md-12 footer-contact text-center text-md-start">
+                <h4>Bizimle İletişime Geçin</h4>
+                <p>
+                    <strong>Tel:</strong> +1 5589 55488 55<br>
+                    <div class="social-links d-flex mt-4">
+                        <a href="#" class="twitter"><i class="bi bi-twitter"></i></a>
+                        <a href="#" class="facebook"><i class="bi bi-facebook"></i></a>
+                        <a href="#" class="instagram"><i class="bi bi-instagram"></i></a>
+                        <a href="#" class="linkedin"><i class="bi bi-linkedin"></i></a>
+                    </div>
+                </p>
+
+            </div>
+
+        </div>
+    </div>
+
+    <div class="container mt-4">
+        <div class="copyright">
+            &copy; Copyright <strong><span>URL-SHORTENER</span></strong>. All Rights Reserved
+        </div>
+        <div class="credits">
+            <!-- All the links in the footer should remain intact. -->
+            <!-- You can delete the links only if you purchased the pro version. -->
+            <!-- Licensing information: https://bootstrapmade.com/license/ -->
+            <!-- Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/logis-bootstrap-logistics-website-template/ -->
+            Designed by Seher Melike Ünaldı & Özer Armağan & Zehra An & Erdem Hacıhasanoğlu
+        </div>
+    </div>
+
+</footer><!-- End Footer -->
+  <!-- End Footer -->
+
+  <a href="#" class="scroll-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+
+  <div id="preloader"></div>
+
+  <!-- Vendor JS Files -->
+  <script src="../vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="../vendor/purecounter/purecounter_vanilla.js"></script>
+  <script src="../vendor/glightbox/js/glightbox.min.js"></script>
+  <script src="../vendor/swiper/swiper-bundle.min.js"></script>
+  <script src="../vendor/aos/aos.js"></script>
+  <script src="../vendor/php-email-form/validate.js"></script>
+
+  <!-- Template Main JS File -->
+  <script src="../js/main.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+  <script type="text/javascript" src="https://cdn.datatables.net/v/bs5/jq-3.6.0/jszip-2.5.0/dt-1.12.1/b-2.2.3/b-colvis-2.2.3/b-html5-2.2.3/b-print-2.2.3/datatables.min.js"></script>
+  <script>
+      $('#kullanıcılar').DataTable({
+          lengthMenu:[5,10,15,20],
+          language:{
+              url:'https://cdn.datatables.net/plug-ins/1.12.1/i18n/tr.json',
+              "info": "Toplam _TOTAL_ Kayıt",
+              "lengthMenu":" Kayıt : _MENU_ ",
+              "paginate": {
+                  "first":      "First",
+                  "last":       "Last",
+                  "next":       ">",
+                  "previous":   "<"
+              }} }); 
+  </script>
+  <script>
+    $('#url').DataTable({
+        lengthMenu:[5,10,15,20],
+        language:{
+            url:'https://cdn.datatables.net/plug-ins/1.12.1/i18n/tr.json',
+            "info": "Toplam _TOTAL_ Kayıt",
+            "lengthMenu":" Kayıt : _MENU_ ",
+            "paginate": {
+                "first":      "First",
+                "last":       "Last",
+                "next":       ">",
+                "previous":   "<"
+            }} }); 
+</script>
+</body>
+
+</html>
