@@ -51,13 +51,30 @@ const homeP=async function(req, res) {
     let date = new Date();
     const currentDateString = date.toISOString().split('.')[0];
     
-
     const istenenTarih =req.body.bitisSaati;
     const bosluk = req.body.verilenIsim.lastIndexOf(" ");
     const shortUrls = await ShortUrl.find( {userId : user._id});
     const kullanilmisUrl = await ShortUrl.findOne( {kısaltılmısUrl : req.body.verilenIsim});
     let takmaUrl=shortId.generate();
     console.log(bosluk);
+    if(req.body.fullUrl==""){
+        return res.render("user/home.ejs", {
+            token:token,
+            user:user,
+            shortUrls: shortUrls,
+            message:"Url Boş Geçilemez",
+            renk:"danger"
+        });
+    }
+    if(req.body.bitisSaati==""){
+        return res.render("user/home.ejs", {
+            token:token,
+            user:user,
+            shortUrls: shortUrls,
+            message:"Tarih Boş Geçilemez",
+            renk:"danger"
+        });
+    }
     if(bosluk!=-1){
         return res.render("user/home.ejs", {
             token:token,
