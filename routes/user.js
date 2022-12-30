@@ -14,7 +14,7 @@ router.get("/erisim",userController.erisim);
 
 router.get("/sil/:id",auth,userController.silme);
 
-// router.get("/:shortUrl",userController.tıklanma);
+router.get("/:shortUrl",userController.tıklanma);
 
 router.get("/logout",userController.logout);
 
