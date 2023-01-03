@@ -37,7 +37,7 @@ app.use("/admin",adminRoutes);
 // app.use("/",userRoutes);
 
 
-app.listen(process.env.PORT, () => {
+app.listen(process.env.PORT || 30000 , () => {
     console.log(process.env.PORT,". port dinleniyor")
     mongoose
       .set("strictQuery", false)
