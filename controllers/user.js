@@ -136,8 +136,9 @@ const homeP=async function(req, res) {
             token:token,
             user:user,
             shortUrls: shortUrls,
-            message:"Kısa Url Oluşturuldu",
-            renk:"success"
+            message:"Kısa Url Oluşturuldu !",
+            message3:'http://localhost:3000/'+takmaUrl,
+            renk:"success",
         });
     }
     catch(err) {
@@ -174,29 +175,29 @@ const silme=async function(req, res) {
 const tıklanma=async function(req, res) {
     try {
         const kisaltilmisUrl = await ShortUrl.findOne({ kısaltılmısUrl: req.params.shortUrl });
-        const date = new Date();
-        console.log(date);
-        const currentDateString = date.toISOString().split('.')[0];
-    
-        const bitisTarihi=kisaltilmisUrl.bitisTarihi;
-        console.log(bitisTarihi);
-        const futureDate = new Date(bitisTarihi);
-        console.log(futureDate);
-    
-        const differenceInMilliseconds = futureDate.getTime() - date.getTime();
-        const differenceInMinutes = differenceInMilliseconds / (1000 * 60);
-    
-        console.log(differenceInMinutes);
-    
-        if(differenceInMinutes<0){
-            return res.redirect("/erisim");
+        if(kisaltilmisUrl.bitisTarihi){
+            const date = new Date();
+            console.log(date);
+            const currentDateString = date.toISOString().split('.')[0];
+
+            const futureDate = new Date(kisaltilmisUrl.bitisTarihi);
+            console.log(futureDate);
+        
+            const differenceInMilliseconds = futureDate.getTime() - date.getTime();
+            const differenceInMinutes = differenceInMilliseconds / (1000 * 60);
+        
+            console.log(differenceInMinutes);
+        
+            if(differenceInMinutes<0){
+                return res.redirect("/erisim");
+            }
+        
+            if (kisaltilmisUrl == null) return res.sendStatus(404)
+            kisaltilmisUrl.tıklanma++;
+            kisaltilmisUrl.save();
+        
+            return res.redirect(kisaltilmisUrl.fullUrl);
         }
-    
-        if (kisaltilmisUrl == null) return res.sendStatus(404)
-        kisaltilmisUrl.tıklanma++;
-        kisaltilmisUrl.save();
-    
-        return res.redirect(kisaltilmisUrl.fullUrl);
     } catch (error) {
         console.log(error);
     }

@@ -13,7 +13,7 @@ const dashboard=async function(req, res) {
         return res.redirect("/home");
     }
     console.log(user);
-    const shortUrls = await ShortUrl.find()
+    const shortUrls = await ShortUrl.find();
     const kullanıcılar = await AuthSchema.find()
     try {
         res.render("admin/dashboard.ejs", {
