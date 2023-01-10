@@ -35,13 +35,14 @@ const silme=async function(req, res) {
     if(req.params.id!=""){
         const url = await AuthSchema.findOne({ _id: req.params.id });
         await AuthSchema.deleteOne({ _id: req.params.id });
+        return await res.redirect("/admin/dashboard");
     }
     if(req.params.shortUrl!=""){
         const url = await ShortUrl.findOne({ _id: req.params.id });
         await ShortUrl.deleteOne({ _id: req.params.id });
         const shortUrls = await ShortUrl.find();    
         if(!url){
-        return res.render("user/home.ejs", {
+        return res.render("admin/dashboard.ejs", {
             token:token,
             user:user,
             shortUrls: shortUrls,
@@ -51,7 +52,7 @@ const silme=async function(req, res) {
     }
     }
     try {
-    return res.redirect("/admin/dashboard");
+    return await res.redirect("/admin/dashboard");
     }
     catch(err) {
         console.log(err);
